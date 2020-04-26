@@ -26,7 +26,13 @@
           <b-icon-type-strikethrough></b-icon-type-strikethrough>
         </EditorMenuButton>
 
-        <!-- todo: insert link -->
+        <EditorMenuButton
+          :class="{'is-active': isActive.link()}"
+          tooltip="Link"
+          @click="onClickLink"
+        >
+          <b-icon-link></b-icon-link>
+        </EditorMenuButton>
 
         <EditorMenuButton
           :isActive="isActive.code()"
@@ -131,7 +137,16 @@ import showdown from 'showdown';
 
 import EditorMenuButton from '@/components/EditorMenuButton';
 
-const MARKDOWN_CONVERTER = new showdown.Converter();
+const MARKDOWN_CONVERTER = new showdown.Converter({
+  omitExtraWLInCodeBlocks: true,
+  noHeaderId: true,
+  simplifiedAutoLink: true,
+  excludeTrailingPunctuationFromURLs: true,
+  strikethrough: true,
+  tables: true,
+  openLinksInNewWindow: true,
+  emoji: true,
+});
 
 export default {
   components: {
@@ -165,6 +180,12 @@ export default {
         },
       }),
     };
+  },
+  methods: {
+    onClickLink() {
+      console.log('onClickLink');
+      // TODO
+    },
   },
   beforeDestroy() {
     this.editor.destroy();
