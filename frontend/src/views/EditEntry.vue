@@ -7,19 +7,24 @@
         <span class="end-date">{{ date | moment('dddd, ll') }}</span
         >.
       </p>
-      <EntryEditor
-        class="form-control journal-markdown"
-        ref="entryText"
-        v-model="entryContent"
-        v-if="entryContent !== null"
-        @input="debouncedSaveDraft"
-      />
-      <p>
-        (You can use
-        <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank"
-          >Markdown</a
-        >)
-      </p>
+      <template v-if="entryContent !== null">
+        <template v-if="inRichEditMode">
+          <RichTextEditor
+            ref="entryText"
+            v-model="entryContent"
+            @input="debouncedSaveDraft"
+            @changeMode="onChangeMode"
+          />
+        </template>
+        <template v-else>
+          <MarkdownEditor
+            ref="entryText"
+            v-model="entryContent"
+            @input="debouncedSaveDraft"
+            @changeMode="onChangeMode"
+          />
+        </template>
+      </template>
       <div class="d-flex justify-content-end">
         <button
           @click.prevent="handleSaveDraft"
@@ -31,7 +36,10 @@
         <button type="submit" class="btn btn-primary">Publish</button>
       </div>
     </form>
-    <JournalPreview :markdown="entryContent" v-if="entryContent !== null" />
+    <JournalPreview
+      :markdown="entryContent"
+      v-if="!inRichEditMode && entryContent !== null"
+    />
   </div>
 </template>
 
@@ -44,20 +52,23 @@ import {getDraft, saveDraft} from '@/controllers/Drafts.js';
 import {saveEntry} from '@/controllers/Entries.js';
 import {isValidEntryDate, thisFriday} from '@/controllers/EntryDates.js';
 
-import EntryEditor from '@/components/EntryEditor.vue';
 import JournalPreview from '@/components/JournalPreview.vue';
+import MarkdownEditor from '@/components/MarkdownEditor.vue';
+import RichTextEditor from '@/components/RichTextEditor.vue';
 
 Vue.use(VueTextareaAutosize);
 
 export default {
   name: 'EditEntry',
   components: {
-    EntryEditor,
     JournalPreview,
+    MarkdownEditor,
+    RichTextEditor,
   },
   data() {
     return {
       date: '',
+      inRichEditMode: true,
       entryContent: null,
       changesSaved: true,
       saveLabel: 'Save Draft',
@@ -81,6 +92,9 @@ export default {
     onContentChanged() {
       this.changesSaved = false;
       this.debouncedSaveDraft();
+    },
+    onChangeMode() {
+      this.inRichEditMode = !this.inRichEditMode;
     },
     handleSaveDraft() {
       this.changesSaved = false;
@@ -135,6 +149,10 @@ export default {
 </script>
 
 <style scoped>
+.editor {
+  min-height: 500px;
+}
+
 .submit {
   text-align: left;
   font-size: 11pt;
