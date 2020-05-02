@@ -1,6 +1,5 @@
 <template>
   <div class="editor markdown-editor">
-    <p><b-button @click="$emit('changeMode')">Rich Text Editor</b-button></p>
     <textarea-autosize
       v-model="contents"
       ref="editor"
@@ -14,7 +13,9 @@
       (You can use
       <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank"
         >Markdown</a
-      >)
+      >
+      or switch to the
+      <a href="#" @click="$emit('changeMode')">rich text editor</a>)
     </p>
   </div>
 </template>
