@@ -68,7 +68,7 @@ export default {
   data() {
     return {
       date: '',
-      inRichEditMode: true,
+      inRichEditMode: this.$store.state.useRichTextEditor,
       entryContent: null,
       changesSaved: true,
       saveLabel: 'Save Draft',
@@ -95,6 +95,7 @@ export default {
     },
     onChangeMode() {
       this.inRichEditMode = !this.inRichEditMode;
+      this.$store.commit('setRichTextEditorChoice', this.inRichEditMode);
     },
     handleSaveDraft() {
       this.changesSaved = false;
