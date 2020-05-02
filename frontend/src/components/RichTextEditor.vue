@@ -92,7 +92,7 @@
 
         <EditorMenuButton
           :isActive="isActive.blockquote()"
-          tooltip="Strikethrough"
+          tooltip="Quote"
           @click="commands.blockquote"
         >
           <b-icon-blockquote-left></b-icon-blockquote-left>
