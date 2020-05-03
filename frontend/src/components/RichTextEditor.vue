@@ -3,6 +3,7 @@
     <editor-menu-bar :editor="editor" v-slot="{commands, isActive}">
       <div class="menubar">
         <EditorMenuButton
+          class="btn-bold"
           :isActive="isActive.bold()"
           tooltip="Bold"
           @click="commands.bold"
@@ -11,6 +12,7 @@
         </EditorMenuButton>
 
         <EditorMenuButton
+          class="btn-italic"
           :isActive="isActive.italic()"
           tooltip="Italic"
           @click="commands.italic"
@@ -19,6 +21,7 @@
         </EditorMenuButton>
 
         <EditorMenuButton
+          class="btn-strikethrough"
           :isActive="isActive.strike()"
           tooltip="Strikethrough"
           @click="commands.strike"
@@ -27,6 +30,7 @@
         </EditorMenuButton>
 
         <EditorMenuButton
+          class="btn-link"
           :class="{'is-active': isActive.link()}"
           tooltip="Link"
           @click="onClickLink"
@@ -35,6 +39,7 @@
         </EditorMenuButton>
 
         <EditorMenuButton
+          class="btn-inline-code"
           :isActive="isActive.code()"
           tooltip="Inline code"
           @click="commands.code"
@@ -43,6 +48,7 @@
         </EditorMenuButton>
 
         <EditorMenuButton
+          class="btn-code-block"
           :isActive="isActive.code_block()"
           tooltip="Code block"
           @click="commands.code_block"
@@ -51,6 +57,7 @@
         </EditorMenuButton>
 
         <EditorMenuButton
+          class="btn-h1"
           :isActive="isActive.heading({level: 1})"
           tooltip="Main heading"
           @click="commands.heading({level: 1})"
@@ -59,6 +66,7 @@
         </EditorMenuButton>
 
         <EditorMenuButton
+          class="btn-h2"
           :isActive="isActive.heading({level: 2})"
           tooltip="Subheading"
           @click="commands.heading({level: 2})"
@@ -67,6 +75,7 @@
         </EditorMenuButton>
 
         <EditorMenuButton
+          class="btn-h3"
           :isActive="isActive.heading({level: 3})"
           tooltip="Subsection heading"
           @click="commands.heading({level: 3})"
@@ -75,6 +84,7 @@
         </EditorMenuButton>
 
         <EditorMenuButton
+          class="btn-bulleted-list"
           :isActive="isActive.bullet_list()"
           tooltip="Bulleted list"
           @click="commands.bullet_list"
@@ -83,6 +93,7 @@
         </EditorMenuButton>
 
         <EditorMenuButton
+          class="btn-numbered-list"
           :isActive="isActive.ordered_list()"
           tooltip="Numbered list"
           @click="commands.ordered_list"
@@ -91,6 +102,7 @@
         </EditorMenuButton>
 
         <EditorMenuButton
+          class="btn-blockquote"
           :isActive="isActive.blockquote()"
           tooltip="Quote"
           @click="commands.blockquote"
@@ -99,6 +111,7 @@
         </EditorMenuButton>
 
         <EditorMenuButton
+          class="switch-mode"
           tooltip="For markdown enthusiasts"
           @click="$emit('changeMode')"
         >

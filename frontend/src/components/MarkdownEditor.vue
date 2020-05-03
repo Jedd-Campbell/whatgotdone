@@ -15,7 +15,9 @@
         >Markdown</a
       >
       or switch to the
-      <a href="#" @click="$emit('changeMode')">rich text editor</a>)
+      <a class="switch-mode" href="#" @click="$emit('changeMode')"
+        >rich text editor</a
+      >)
     </p>
   </div>
 </template>
