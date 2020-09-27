@@ -159,6 +159,8 @@ const MARKDOWN_CONVERTER = new showdown.Converter({
   tables: true,
   openLinksInNewWindow: true,
   emoji: true,
+  simpleLineBreaks: true,
+  encodeEmails: false,
 });
 
 export default {
@@ -189,7 +191,7 @@ export default {
         ],
         content: MARKDOWN_CONVERTER.makeHtml(this.value),
         onUpdate: ({getHTML}) => {
-          this.$emit('input', MARKDOWN_CONVERTER.makeMarkdown(getHTML()));
+          this.$emit('input', this.htmlToMarkdown(getHTML()));
         },
       }),
     };
@@ -198,6 +200,13 @@ export default {
     onClickLink() {
       console.log('onClickLink');
       // TODO
+    },
+    htmlToMarkdown(html) {
+      console.log('html=', html);
+      let markdown = MARKDOWN_CONVERTER.makeMarkdown(html);
+      // showdown injects HTML comments for some reason. Strip them out.
+      markdown = markdown.replace('<!-- -->', '');
+      return markdown;
     },
   },
   beforeDestroy() {
@@ -213,6 +222,14 @@ export default {
 
 .menubar >>> .btn {
   margin-right: 0.5rem;
+}
+
+.editor {
+  margin: 1rem 0;
+}
+
+.editor-content >>> .ProseMirror {
+  min-height: 600px;
 }
 
 .editor-content >>> blockquote {

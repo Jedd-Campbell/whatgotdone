@@ -64,3 +64,22 @@ it("writes an entry with every type of formatting", () => {
 
   // TODO: Check rendered text
 });
+
+
+
+
+it("does not inject HTML comments", () => {
+  cy.login("staging_jimmy");
+
+  cy.location("pathname").should("include", "/entry/edit");
+
+  cy.get(".btn-bulleted-list .btn").click();
+  cy.get(".editor-content").type("a{enter}{enter}b");
+
+  cy.get(".switch-mode .btn").click();
+
+  cy.get(".editor-textarea").should(
+    "have.value",
+    "- a\n\nb"
+  );
+});
