@@ -113,7 +113,7 @@
         <EditorMenuButton
           class="switch-mode"
           tooltip="For markdown enthusiasts"
-          @click="$emit('changeMode')"
+          @click="$emit('change-mode')"
         >
           Plaintext Editor
         </EditorMenuButton>
@@ -147,10 +147,12 @@ import {
   Strike,
 } from 'tiptap-extensions';
 import showdown from 'showdown';
+import TurndownService from 'turndown';
+import {gfm} from 'turndown-plugin-gfm';
 
 import EditorMenuButton from '@/components/EditorMenuButton';
 
-const MARKDOWN_CONVERTER = new showdown.Converter({
+const showdownService = new showdown.Converter({
   omitExtraWLInCodeBlocks: true,
   noHeaderId: true,
   simplifiedAutoLink: true,
@@ -161,7 +163,10 @@ const MARKDOWN_CONVERTER = new showdown.Converter({
   emoji: true,
   simpleLineBreaks: true,
   encodeEmails: false,
+  requireSpaceBeforeHeadingText: false,
 });
+
+const turndownService = new TurndownService({headingStyle: 'atx'});
 
 export default {
   components: {
@@ -189,7 +194,7 @@ export default {
           new Italic(),
           new Strike(),
         ],
-        content: MARKDOWN_CONVERTER.makeHtml(this.value),
+        content: showdownService.makeHtml(this.value),
         onUpdate: ({getHTML}) => {
           this.$emit('input', this.htmlToMarkdown(getHTML()));
         },
@@ -199,13 +204,14 @@ export default {
   methods: {
     onClickLink() {
       console.log('onClickLink');
-      // TODO
+      // TODO: Implement a dialog for entering links
     },
     htmlToMarkdown(html) {
       console.log('html=', html);
-      let markdown = MARKDOWN_CONVERTER.makeMarkdown(html);
-      // showdown injects HTML comments for some reason. Strip them out.
-      markdown = markdown.replace('<!-- -->', '');
+
+      turndownService.use(gfm);
+      let markdown = turndownService.turndown(html);
+      console.log('markdown=', {x: markdown});
       return markdown;
     },
   },
@@ -229,7 +235,7 @@ export default {
 }
 
 .editor-content >>> .ProseMirror {
-  min-height: 600px;
+  outline: none;
 }
 
 .editor-content >>> blockquote {

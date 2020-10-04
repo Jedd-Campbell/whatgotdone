@@ -12,7 +12,7 @@ it("logs in and saves a draft", () => {
 
   const entryText = "Saved a private draft at " + new Date().toISOString();
 
-  cy.get(".journal-markdown").clear().type(entryText);
+  cy.get(".markdown-editor textarea").clear().type(entryText);
   cy.get(".save-draft").click();
 
   // Wait for "save draft" operation to complete.
@@ -43,7 +43,7 @@ it("don't overwrite draft until we successfully sync the latest draft from the s
   // Wait for page to fail on its request to pull down the previous draft.
   cy.wait("@getDraft");
 
-  cy.get(".journal-markdown").should("not.be.visible");
+  cy.get(".markdown-editor textarea").should("not.be.visible");
   cy.get(".save-draft").should("not.be.visible");
 });
 
@@ -61,7 +61,7 @@ it("logs in and saves a draft", () => {
 
   const entryText = "Saved a private draft at " + new Date().toISOString();
 
-  cy.get(".journal-markdown").clear().type(entryText);
+  cy.get(".markdown-editor textarea").clear().type(entryText);
   cy.get(".save-draft").click();
 
   // Wait for "save draft" operation to complete.
@@ -90,7 +90,7 @@ it("uses the entry template for new drafts", () => {
   // Wait for page to pull down any previous entry.
   cy.wait("@getDraft");
 
-  cy.get(".journal-markdown").should("have.value", "");
+  cy.get(".markdown-editor textarea").should("have.value", "");
 
   // Set an entry template on the preferences page.
   cy.visit("/preferences");
@@ -107,7 +107,7 @@ it("uses the entry template for new drafts", () => {
   cy.location("pathname").should("include", "/entry/edit");
 
   cy.wait("@getDraft");
-  cy.get(".journal-markdown").should(
+  cy.get(".markdown-editor textarea").should(
     "have.value",
     "# Example project\n\n* Item A\n* Item B"
   );

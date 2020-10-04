@@ -13,7 +13,7 @@
             ref="entryText"
             v-model="entryContent"
             @input="debouncedSaveDraft"
-            @changeMode="onChangeMode"
+            @change-mode="onChangeMode"
           />
         </template>
         <template v-else>
@@ -21,7 +21,7 @@
             ref="entryText"
             v-model="entryContent"
             @input="debouncedSaveDraft"
-            @changeMode="onChangeMode"
+            @change-mode="onChangeMode"
           />
         </template>
       </template>

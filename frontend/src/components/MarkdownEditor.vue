@@ -15,7 +15,7 @@
         >Markdown</a
       >
       or switch to the
-      <a class="switch-mode" href="#" @click="$emit('changeMode')"
+      <a class="switch-mode" href="#" @click="$emit('change-mode')"
         >rich text editor</a
       >)
     </p>
@@ -59,10 +59,10 @@ export default {
           true
         );
         uploadMedia(pastedFile)
-          .then(url => {
+          .then((url) => {
             this.insertTextAtCursorPosition(`[${selectedText}](${url})`, false);
           })
-          .catch(err => {
+          .catch((err) => {
             this.insertTextAtCursorPosition(
               `[${selectedText}](upload failed: ${err})`,
               false
@@ -70,14 +70,14 @@ export default {
           });
       }
     },
-    getSelectedText: function() {
+    getSelectedText: function () {
       const textarea = this.$refs.editor.$el;
       return textarea.value.slice(
         textarea.selectionStart,
         textarea.selectionEnd
       );
     },
-    insertTextAtCursorPosition: function(text, highlight) {
+    insertTextAtCursorPosition: function (text, highlight) {
       const textarea = this.$refs.editor.$el;
       if (!text) {
         return;
@@ -91,7 +91,7 @@ export default {
 
       this.$emit('input', textarea.value);
 
-      this.$nextTick(function() {
+      this.$nextTick(function () {
         if (highlight) {
           textarea.selectionStart = cursorPos;
           textarea.selectionEnd = cursorPos + text.length;
@@ -104,7 +104,7 @@ export default {
     },
   },
   watch: {
-    value: function(newValue) {
+    value: function (newValue) {
       this.contents = newValue;
     },
   },

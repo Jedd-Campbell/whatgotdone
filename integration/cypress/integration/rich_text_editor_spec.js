@@ -29,7 +29,8 @@ it("writes an entry with every type of formatting", () => {
 
   cy.get(".editor-content").type("This week was ");
   cy.get(".btn-bold .btn").click();
-  cy.get(".editor-content").type("{ctrl}{end}{ctrl}very difficult");
+  cy.get(".editor-content").click();
+  cy.get(".editor-content").type("{ctrl}{end}very difficult");
   cy.get(".btn-bold .btn").click();
   cy.get(".editor-content").type("!");
   cy.get(".editor-content").type("{enter}");
@@ -43,6 +44,8 @@ it("writes an entry with every type of formatting", () => {
   cy.get(".btn-strikethrough .btn").click();
   cy.get(".editor-content").type(" 21 new bugs.{enter}");
 
+  cy.get(".editor-content").type(" 21 new bugs.{enter}");
+
   // TODO: use link
 
   cy.get(".editor-content").type("Most were in the ");
@@ -50,13 +53,41 @@ it("writes an entry with every type of formatting", () => {
   cy.get(".editor-content").type("Frombobulator");
   cy.get(".btn-inline-code .btn").click();
   cy.get(".editor-content").type(
-    "component. The typical bad code looks like this:{enter}"
+    "component. The typical bad code looks like this:{enter}{enter}"
   );
 
-  // TODO: use code block
+  cy.get(".editor-content").type("```{enter}");
+  cy.get(".editor-content").type("f = new Frombobulator(){enter}");
+  cy.get(".editor-content").type("f.frombobulate(){enter}");
+  cy.get(".editor-content").type("```{enter}{enter}{enter}");
+  cy.get(".editor-content").type("Yuck!");
   // TODO: use bulleted list
   // TODO: use ordered list
   // TODO: use blockquote
+
+  cy.get(".switch-mode .btn").click();
+
+  cy.get(".markdown-editor textarea").should(
+    "have.value",
+    `# Project A
+
+## Subproject B
+
+###Topic 1
+
+This week was **very difficult**!
+
+I _discovered_ ~12~ 21 new bugs.
+
+Most were in the \`Frombobulator\` component. The typical bad code looks like this:
+
+\`\`\`
+f = new Frombobulator()
+f.frombobulate()
+\`\`\`
+
+Yuck!`
+  );
 
   cy.get("form").submit();
 
@@ -64,9 +95,6 @@ it("writes an entry with every type of formatting", () => {
 
   // TODO: Check rendered text
 });
-
-
-
 
 it("does not inject HTML comments", () => {
   cy.login("staging_jimmy");
@@ -78,8 +106,5 @@ it("does not inject HTML comments", () => {
 
   cy.get(".switch-mode .btn").click();
 
-  cy.get(".editor-textarea").should(
-    "have.value",
-    "- a\n\nb"
-  );
+  cy.get(".editor-textarea").should("have.value", "- a\n\nb");
 });

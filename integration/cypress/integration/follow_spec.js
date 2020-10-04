@@ -8,7 +8,7 @@ it("follows a user", () => {
   cy.location("pathname").should("include", "/entry/edit");
   cy.wait("@getDraft");
 
-  cy.get(".journal-markdown")
+  cy.get(".markdown-editor textarea")
     .clear()
     .type("It's good to be the leader, as other users love to follow me!");
   cy.get("form").submit();
