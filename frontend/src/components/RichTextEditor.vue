@@ -212,7 +212,7 @@ export default {
       turndownService.use(gfm);
       let markdown = turndownService.turndown(html);
       // Trim trailing whitespace
-      markdown = markdown.replaceAll(/\s+\n/gi, '\n');
+      markdown = markdown.replace(/\s+\n/g, '\n');
       console.log('markdown=', {x: markdown});
       return markdown;
     },
