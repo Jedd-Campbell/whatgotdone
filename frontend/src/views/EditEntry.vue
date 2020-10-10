@@ -150,10 +150,6 @@ export default {
 </script>
 
 <style scoped>
-.editor {
-  min-height: 500px;
-}
-
 .submit {
   text-align: left;
   font-size: 11pt;

@@ -232,10 +232,12 @@ export default {
 
 .editor {
   margin: 1rem 0;
+  height: inherit;
 }
 
 .editor-content >>> .ProseMirror {
   outline: none;
+  min-height: 250px;
 }
 
 .editor-content >>> blockquote {
