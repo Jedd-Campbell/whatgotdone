@@ -34,7 +34,7 @@ it("writes an entry with every type of formatting", () => {
   cy.get(".btn-bold .btn").click();
   cy.get(".btn-bold .btn").should("not.have.class", "is-active");
   cy.get(".editor-content .ProseMirror").type("!");
-  cy.get(".editor-content .ProseMirror").type("{enter}");
+  cy.get(".editor-content .ProseMirror").type("{enter}{enter}");
 
   cy.get(".editor-content .ProseMirror").type("I ");
   cy.get(".btn-italic .btn").click();
@@ -43,7 +43,7 @@ it("writes an entry with every type of formatting", () => {
   cy.get(".btn-strikethrough .btn").click();
   cy.get(".editor-content .ProseMirror").type("11");
   cy.get(".btn-strikethrough .btn").click();
-  cy.get(".editor-content .ProseMirror").type(" 22 new bugs.{enter}");
+  cy.get(".editor-content .ProseMirror").type(" 22 new bugs.{enter}{enter}");
 
   // TODO: use link
 
@@ -68,19 +68,19 @@ it("writes an entry with every type of formatting", () => {
   cy.get(".markdown-editor textarea").should(
     "have.value",
     `# Project A
-
 ## Subproject B
-
-###Topic 1
+### Topic 1
 
 This week was **very difficult**!
 
-I _discovered_ ~12~ 21 new bugs.
+I _discovered_ ~11~ 22 new bugs.
 
 Most were in the \`Frombobulator\` component. The typical bad code looks like this:
 
+
     f = new Frombobulator()
     f.frombobulate()
+
 
 Yuck!`
   );
