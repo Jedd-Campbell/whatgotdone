@@ -5,7 +5,7 @@ it("writes an entry without formatting", () => {
 
   const entryText = "Posted an update at " + new Date().toISOString();
 
-  cy.get(".editor-content").type(entryText);
+  cy.get(".editor-content .ProseMirror").type(entryText);
   cy.get("form").submit();
 
   cy.location("pathname").should("include", "/staging_jimmy/");
@@ -19,48 +19,48 @@ it("writes an entry with every type of formatting", () => {
   cy.location("pathname").should("include", "/entry/edit");
 
   cy.get(".btn-h1 .btn").click();
-  cy.get(".editor-content").type("Project A{enter}");
+  cy.get(".editor-content .ProseMirror").type("Project A{enter}");
 
   cy.get(".btn-h2 .btn").click();
-  cy.get(".editor-content").type("Subproject B{enter}");
+  cy.get(".editor-content .ProseMirror").type("Subproject B{enter}");
 
   cy.get(".btn-h3 .btn").click();
-  cy.get(".editor-content").type("Topic 1{enter}");
+  cy.get(".editor-content .ProseMirror").type("Topic 1{enter}");
 
-  cy.get(".editor-content").type("This week was ");
+  cy.get(".editor-content .ProseMirror").type("This week was ");
   cy.get(".btn-bold .btn").click();
-  cy.get(".editor-content").click();
-  cy.get(".editor-content").type("{ctrl}{end}very difficult");
+  cy.get(".editor-content .ProseMirror").click();
+  cy.get(".editor-content .ProseMirror").type("{ctrl}{end}very difficult");
   cy.get(".btn-bold .btn").click();
-  cy.get(".editor-content").type("!");
-  cy.get(".editor-content").type("{enter}");
+  cy.get(".editor-content .ProseMirror").type("!");
+  cy.get(".editor-content .ProseMirror").type("{enter}");
 
-  cy.get(".editor-content").type("I ");
+  cy.get(".editor-content .ProseMirror").type("I ");
   cy.get(".btn-italic .btn").click();
-  cy.get(".editor-content").type("discovered ");
+  cy.get(".editor-content .ProseMirror").type("discovered ");
   cy.get(".btn-italic .btn").click();
   cy.get(".btn-strikethrough .btn").click();
-  cy.get(".editor-content").type("12");
+  cy.get(".editor-content .ProseMirror").type("12");
   cy.get(".btn-strikethrough .btn").click();
-  cy.get(".editor-content").type(" 21 new bugs.{enter}");
+  cy.get(".editor-content .ProseMirror").type(" 21 new bugs.{enter}");
 
-  cy.get(".editor-content").type(" 21 new bugs.{enter}");
+  cy.get(".editor-content .ProseMirror").type(" 21 new bugs.{enter}");
 
   // TODO: use link
 
-  cy.get(".editor-content").type("Most were in the ");
+  cy.get(".editor-content .ProseMirror").type("Most were in the ");
   cy.get(".btn-inline-code .btn").click();
-  cy.get(".editor-content").type("Frombobulator");
+  cy.get(".editor-content .ProseMirror").type("Frombobulator");
   cy.get(".btn-inline-code .btn").click();
-  cy.get(".editor-content").type(
+  cy.get(".editor-content .ProseMirror").type(
     "component. The typical bad code looks like this:{enter}{enter}"
   );
 
-  cy.get(".editor-content").type("```{enter}");
-  cy.get(".editor-content").type("f = new Frombobulator(){enter}");
-  cy.get(".editor-content").type("f.frombobulate(){enter}");
-  cy.get(".editor-content").type("```{enter}{enter}{enter}");
-  cy.get(".editor-content").type("Yuck!");
+  cy.get(".editor-content .ProseMirror").type("```{enter}");
+  cy.get(".editor-content .ProseMirror").type("f = new Frombobulator(){enter}");
+  cy.get(".editor-content .ProseMirror").type("f.frombobulate(){enter}");
+  cy.get(".editor-content .ProseMirror").type("```{enter}{enter}{enter}");
+  cy.get(".editor-content .ProseMirror").type("Yuck!");
   // TODO: use bulleted list
   // TODO: use ordered list
   // TODO: use blockquote
@@ -102,7 +102,7 @@ it("does not inject HTML comments", () => {
   cy.location("pathname").should("include", "/entry/edit");
 
   cy.get(".btn-bulleted-list .btn").click();
-  cy.get(".editor-content").type("a{enter}{enter}b");
+  cy.get(".editor-content .ProseMirror").type("a{enter}{enter}b");
 
   cy.get(".switch-mode .btn").click();
 
