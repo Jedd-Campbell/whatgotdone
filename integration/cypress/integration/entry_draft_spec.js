@@ -107,6 +107,7 @@ it("uses the entry template for new drafts", () => {
   cy.location("pathname").should("include", "/entry/edit");
 
   cy.wait("@getDraft");
+  cy.get(".switch-mode .btn").click();
   cy.get(".editor-content .ProseMirror").should(
     "have.value",
     "# Example project\n\n* Item A\n* Item B"

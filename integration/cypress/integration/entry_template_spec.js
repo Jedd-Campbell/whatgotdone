@@ -20,6 +20,7 @@ it("pre-populates new entries with the user's draft template", () => {
   cy.location("pathname").should("include", "/entry/edit");
 
   cy.wait("@getPreferences");
+  cy.get(".switch-mode .btn").click();
   cy.get(".markdown-editor textarea").should(
     "have.value",
     "# Project Falcon\n\n* Item 1"

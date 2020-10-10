@@ -29,9 +29,10 @@ it("writes an entry with every type of formatting", () => {
 
   cy.get(".editor-content .ProseMirror").type("This week was ");
   cy.get(".btn-bold .btn").click();
-  cy.get(".editor-content .ProseMirror").click();
-  cy.get(".editor-content .ProseMirror").type("{ctrl}{end}very difficult");
+  cy.get(".btn-bold .btn").should("have.class", "is-active");
+  cy.get(".editor-content .ProseMirror").type("very difficult");
   cy.get(".btn-bold .btn").click();
+  cy.get(".btn-bold .btn").should("not.have.class", "is-active");
   cy.get(".editor-content .ProseMirror").type("!");
   cy.get(".editor-content .ProseMirror").type("{enter}");
 
@@ -40,11 +41,9 @@ it("writes an entry with every type of formatting", () => {
   cy.get(".editor-content .ProseMirror").type("discovered ");
   cy.get(".btn-italic .btn").click();
   cy.get(".btn-strikethrough .btn").click();
-  cy.get(".editor-content .ProseMirror").type("12");
+  cy.get(".editor-content .ProseMirror").type("11");
   cy.get(".btn-strikethrough .btn").click();
-  cy.get(".editor-content .ProseMirror").type(" 21 new bugs.{enter}");
-
-  cy.get(".editor-content .ProseMirror").type(" 21 new bugs.{enter}");
+  cy.get(".editor-content .ProseMirror").type(" 22 new bugs.{enter}");
 
   // TODO: use link
 
@@ -56,10 +55,9 @@ it("writes an entry with every type of formatting", () => {
     "component. The typical bad code looks like this:{enter}{enter}"
   );
 
-  cy.get(".editor-content .ProseMirror").type("```{enter}");
+  cy.get(".btn-code-block .btn").click();
   cy.get(".editor-content .ProseMirror").type("f = new Frombobulator(){enter}");
-  cy.get(".editor-content .ProseMirror").type("f.frombobulate(){enter}");
-  cy.get(".editor-content .ProseMirror").type("```{enter}{enter}{enter}");
+  cy.get(".editor-content .ProseMirror").type("f.frombobulate(){ctrl}{enter}");
   cy.get(".editor-content .ProseMirror").type("Yuck!");
   // TODO: use bulleted list
   // TODO: use ordered list
@@ -81,10 +79,8 @@ I _discovered_ ~12~ 21 new bugs.
 
 Most were in the \`Frombobulator\` component. The typical bad code looks like this:
 
-\`\`\`
-f = new Frombobulator()
-f.frombobulate()
-\`\`\`
+    f = new Frombobulator()
+    f.frombobulate()
 
 Yuck!`
   );
@@ -106,5 +102,5 @@ it("does not inject HTML comments", () => {
 
   cy.get(".switch-mode .btn").click();
 
-  cy.get(".editor-textarea").should("have.value", "- a\n\nb");
+  cy.get(".editor-textarea").should("have.value", "*    a\n\nb");
 });
