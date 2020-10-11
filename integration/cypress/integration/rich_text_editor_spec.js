@@ -19,13 +19,13 @@ it("writes an entry with every type of formatting", () => {
   cy.location("pathname").should("include", "/entry/edit");
 
   cy.get(".btn-h1 .btn").click();
-  cy.get(".editor-content .ProseMirror").type("Project A{enter}");
+  cy.get(".editor-content .ProseMirror").type("Project A{enter}{enter}");
 
   cy.get(".btn-h2 .btn").click();
-  cy.get(".editor-content .ProseMirror").type("Subproject B{enter}");
+  cy.get(".editor-content .ProseMirror").type("Subproject B{enter}{enter}");
 
   cy.get(".btn-h3 .btn").click();
-  cy.get(".editor-content .ProseMirror").type("Topic 1{enter}");
+  cy.get(".editor-content .ProseMirror").type("Topic 1{enter}{enter}");
 
   cy.get(".editor-content .ProseMirror").type("This week was ");
   cy.get(".btn-bold .btn").click();
@@ -52,7 +52,7 @@ it("writes an entry with every type of formatting", () => {
   cy.get(".editor-content .ProseMirror").type("Frombobulator");
   cy.get(".btn-inline-code .btn").click();
   cy.get(".editor-content .ProseMirror").type(
-    "component. The typical bad code looks like this:{enter}{enter}"
+    "component. The typical bad code looks like this:{enter}"
   );
 
   cy.get(".btn-code-block .btn").click();
@@ -70,18 +70,13 @@ it("writes an entry with every type of formatting", () => {
     `# Project A
 ## Subproject B
 ### Topic 1
-
 This week was **very difficult**!
 
 I _discovered_ ~11~ 22 new bugs.
 
 Most were in the \`Frombobulator\` component. The typical bad code looks like this:
-
-
     f = new Frombobulator()
     f.frombobulate()
-
-
 Yuck!`
   );
 
